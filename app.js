@@ -2,17 +2,18 @@ const Koa = require('koa');
 const app = new Koa();
 const port = 3000 || process.env.PORT;
 
+let router = require('koa-router')();
+
 // Index route
-app.get('/', function (req, res) {
-	res.send('Hello world, I am a chat bot')
-})
+router.get('/', function *() {
+	yield.render('Hello World!');
+});
 
 // for Facebook verification
-app.get('/webhook/', function (req, res) {
-	if (req.query['hub.verify_token'] === 'my_bot_verify') {
-		res.send(req.query['hub.challenge'])
-	}
-	res.send('Error, wrong token')
+router.get('/webhook/', function *() {
+	console.log('recebemos uma notificação do facebook')
+	console.log(this)
+	console.log(this.hub);
 });
 
 app.listen(3000, ()=> {
