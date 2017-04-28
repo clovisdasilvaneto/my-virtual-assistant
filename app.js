@@ -47,7 +47,8 @@ function formatEntry(entry){
 	let pageID = entry.id;
 	let timerOfEvent = entry.time;
 	
-	return entry.message.forEach(formatEntryMessage);
+	entry.message.forEach(formatEntryMessage);
+	res.sendStatus(200);
 }
 
 function formatEntryMessage(message){
