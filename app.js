@@ -81,20 +81,20 @@ function sendTextMessage({ sender, messageData }) {
 }
 
 function setupBotLayout(){
-	request({
-		url: 'https://graph.facebook.com/v2.6/me/thread_settings',
-		qs: {access_token:token},
-		method: 'POST',
-		json: {
-			setting_type:"call_to_actions",
-			thread_state:"new_thread",
-			call_to_actions:[
-				{
-					payload:"USER_DEFINED_PAYLOAD"
-				}
-			]
-		}
-	}, sendLogError);
+	// request({
+	// 	url: 'https://graph.facebook.com/v2.6/me/thread_settings',
+	// 	qs: {access_token:token},
+	// 	method: 'POST',
+	// 	json: {
+	// 		setting_type:"call_to_actions",
+	// 		thread_state:"new_thread",
+	// 		call_to_actions:[
+	// 			{
+	// 				payload:"USER_DEFINED_PAYLOAD"
+	// 			}
+	// 		]
+	// 	}
+	// }, sendLogError);
 	
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/thread_settings',
