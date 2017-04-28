@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "npm install"
   },
   "dependencies": {
     "koa": "^2.2.0",

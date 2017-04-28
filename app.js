@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const app = new Koa();
-const port = 3000 || process.env.PORT;
+const port = 5000 || process.env.PORT;
 
 let router = require('koa-router')();
 
@@ -16,6 +16,6 @@ router.get('/webhook/', function *() {
 	console.log(this.hub);
 });
 
-app.listen(80, ()=> {
+app.listen(port, ()=> {
 	console.log(`server starting on port ${port}`);
 });
