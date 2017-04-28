@@ -32,6 +32,7 @@ app.post('/webhook/', (req, res)=>{
 	let data = req.body;
 	
 	if(data){
+		console.log(data);
 		data.entry.forEach(formatEntry);
 		res.sendStatus(200);
 	}else {
@@ -47,7 +48,7 @@ app.listen(app.get('port'),()=>{
 function formatEntry(entry){
 	let pageID = entry.id;
 	let timerOfEvent = entry.time;
-	console.log(data);
+	
 	if(entry.message){
 		entry.message.forEach(formatEntryMessage);
 	}
