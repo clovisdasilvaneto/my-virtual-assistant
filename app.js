@@ -23,13 +23,19 @@ app.get('/', (req, res)=>{
 // for Facebook verification
 app.get('/webhook/', (req, res)=>{
 	if (req.query['hub.verify_token'] === 'my_bot_verify') {
-		res.send(req.query['hub.challenge'])
+		res.status(200).send(req.query['hub.challenge']);
 	}
-	res.send('Error, wrong token')
+	res.status(401).send('Error, wrong token');
 });
 
 app.post('/webhook/', (req, res)=>{
-	console.log(req.body)
+	let data = req.body;
+	
+	if(data){
+		data.entry.forEach(formatEntry);
+	}else {
+		res.status(401).send('Error, wrong message');
+	}
 });
 
 // Spin up the server
@@ -37,6 +43,20 @@ app.listen(app.get('port'),()=>{
 	console.log('running on port', app.get('port'))
 });
 
+function formatEntry(entry){
+	let pageID = entry.id;
+	let timerOfEvent = entry.time;
+	
+	return entry.message.forEach(formatEntryMessage);
+}
+
+function formatEntryMessage(message){
+	message.forEach(event=>{
+		if(event.message){
+			console.log('foi mensagem')
+		}
+	});
+}
 
 function sendTextMessage({ sender, messageData }) {
 	request({
