@@ -50,6 +50,8 @@ function formatEntry(entry){
 	let timerOfEvent = entry.time;
 	
 	if(entry.message){
+		console.log('O usuario enviou uma mensagem: ')
+		console.log(entry.message)
 		entry.message.forEach(formatEntryMessage);
 	}
 }
