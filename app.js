@@ -49,19 +49,16 @@ function formatEntry(entry){
 	let pageID = entry.id;
 	let timerOfEvent = entry.time;
 	
-	if(entry.message){
-		console.log('O usuario enviou uma mensagem: ')
-		console.log(entry.message)
-		entry.message.forEach(formatEntryMessage);
+	if(entry.messaging){
+		console.log('O usuario enviou uma mensagem: ');
+		entry.messaging.forEach(formatEntryMessage);
 	}
 }
 
-function formatEntryMessage(message){
-	message.forEach(event=>{
-		if(event.message){
-			console.log('foi mensagem')
-		}
-	});
+function formatEntryMessage({ message }){
+	if(message){
+		console.log(message);
+	}
 }
 
 function sendTextMessage({ sender, messageData }) {
