@@ -1,5 +1,5 @@
 module.exports = {
 	fb: {
-		page_token: 'EAAGZAu16cjbEBAHe18lDR3YIvg3GMCvvdjpAppZBZBogDpJo3vp7Sp4SQhH0GJvsmLREAdeN8vRVtVAeKGnNkff3LGtNkrDFaIs4y0KAZAtOhGrnRfbBl4aFsEzHxkVtZB7i2VjnrWDIFrocXZAQM1AbsiRaecdqKDsdPzP2ZBYRAZDZD'
+		page_token: 'YOUR LOCAL TOKEN'
 	}
 }
