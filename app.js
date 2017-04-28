@@ -115,18 +115,6 @@ function setupBotLayout(){
 					type:"postback",
 					title:"Visualizar contas deste mês",
 					payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER"
-				},
-				{
-					type:"web_url",
-					title:"Site do autor",
-					url:"https://clovisdasilvaneto.github.io",
-					webview_height_ratio: "full",
-					messenger_extensions: true
-				},
-				{
-					type:"web_url",
-					title:"Facebook do autor",
-					url:"https://www.facebook.com/ClovisDaSilvaNeto"
 				}
 			]
 		}
