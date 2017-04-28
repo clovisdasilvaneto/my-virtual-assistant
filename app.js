@@ -6,7 +6,7 @@ let router = require('koa-router')();
 
 // Index route
 router.get('/', function *() {
-	yield.render('Hello World!');
+	yield render('Hello World!');
 });
 
 // for Facebook verification
