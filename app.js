@@ -33,6 +33,7 @@ app.post('/webhook/', (req, res)=>{
 	
 	if(data){
 		data.entry.forEach(formatEntry);
+		res.sendStatus(200);
 	}else {
 		res.status(401).send('Error, wrong message');
 	}
@@ -47,8 +48,9 @@ function formatEntry(entry){
 	let pageID = entry.id;
 	let timerOfEvent = entry.time;
 	
-	entry.message.forEach(formatEntryMessage);
-	res.sendStatus(200);
+	if(entry.message){
+		entry.message.forEach(formatEntryMessage);
+	}
 }
 
 function formatEntryMessage(message){
@@ -87,7 +89,7 @@ function sendTextMessage({ sender, messageData }) {
 
 request({
 	url: 'https://graph.facebook.com/v2.6/me/thread_settings',
-	qs: {access_token:token},
+	qs: {access_token:process.env.FB_PAGE_ACCESS_TOKEN},
 	method: 'POST',
 	json: {
 		setting_type:"call_to_actions",
