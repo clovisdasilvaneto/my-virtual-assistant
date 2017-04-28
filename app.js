@@ -83,47 +83,65 @@ function sendTextMessage({ sender, messageData }) {
 }
 
 function setupBotLayout(){
-	// request({
-	// 	url: 'https://graph.facebook.com/v2.6/me/thread_settings',
-	// 	qs: {access_token:token},
-	// 	method: 'POST',
-	// 	json: {
-	// 		setting_type:"call_to_actions",
-	// 		thread_state:"new_thread",
-	// 		call_to_actions:[
-	// 			{
-	// 				payload:"USER_DEFINED_PAYLOAD"
-	// 			}
-	// 		]
-	// 	}
-	// }, sendLogError);
-	
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/thread_settings',
 		qs: {access_token:token},
 		method: 'POST',
 		json: {
 			setting_type:"call_to_actions",
-			thread_state:"existing_thread",
+			thread_state:"new_thread",
 			call_to_actions:[
 				{
-					type:"postback",
-					title:"Ajuda",
-					payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
-				},
-				{
-					type:"postback",
-					title:"Visualizar contas deste mês",
-					payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER"
-				},
-				{
-					type:"web_url",
-					title:"Facebook do autor",
-					url:"https://www.facebook.com/ClovisDaSilvaNeto"
+					payload:"USER_DEFINED_PAYLOAD"
 				}
 			]
 		}
 	}, sendLogError);
+	
+	request({
+		url: 'https://graph.facebook.com/v2.6/me/thread_settings',
+		qs: {access_token:token},
+		method: 'POST',
+		json: {
+			setting_type : "domain_whitelisting",
+			whitelisted_domains : ["https://clovisdasilvaneto.github.io","https://www.facebook.com/ClovisDaSilvaNeto"],
+			domain_action_type: "add"
+		}
+	}, function(){
+		request({
+			url: 'https://graph.facebook.com/v2.6/me/thread_settings',
+			qs: {access_token:token},
+			method: 'POST',
+			json: {
+				setting_type:"call_to_actions",
+				thread_state:"existing_thread",
+				call_to_actions:[
+					{
+						type:"postback",
+						title:"Ajuda",
+						payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
+					},
+					{
+						type:"postback",
+						title:"Visualizar contas deste mês",
+						payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER"
+					},
+					{
+						type:"web_url",
+						title:"Site do autor",
+						url:"https://clovisdasilvaneto.github.io",
+						webview_height_ratio: "full",
+						messenger_extensions: true
+					},
+					{
+						type:"web_url",
+						title:"Facebook do autor",
+						url:"https://www.facebook.com/ClovisDaSilvaNeto"
+					}
+				]
+			}
+		}, sendLogError);
+	})
 }
 
 function sendLogError(error, response) {
