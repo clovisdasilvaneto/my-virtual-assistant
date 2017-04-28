@@ -29,8 +29,8 @@ app.get('/webhook/', (req, res)=>{
 });
 
 app.post('/webhook/', (req, res)=>{
-	console.log(req)
-})
+	console.log(req.body)
+});
 
 // Spin up the server
 app.listen(app.get('port'),()=>{
