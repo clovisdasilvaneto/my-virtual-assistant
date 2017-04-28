@@ -55,9 +55,10 @@ function formatEntry(entry){
 	}
 }
 
-function formatEntryMessage({ message }){
-	if(message){
-		console.log(message);
+function formatEntryMessage(event){
+	console.log(event)
+	if(event.message){
+		console.log(event.message);
 	}
 }
 
