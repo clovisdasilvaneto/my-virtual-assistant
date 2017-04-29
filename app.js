@@ -81,17 +81,16 @@ function formatEntryMessage(event){
 function checkMessageToReply({message, sender}){
 	openFile(sender.id, (err, section) => {
 		if(!err){
-			console.log('Chegou uma mensagem da seção');
 			section = JSON.parse(section);
+			
+			console.log('Chegou uma mensagem da seção');
 			console.log(section);
+			
 			return checkMessageToSteps(message, sender, section);
-		}else {
-			switch (message.text) {
-				case 'nova conta':
-					console.log('entrou no match')
-					return addNewAccount(sender);
-					break
-			}
+		}
+			
+		if(message.text.match(/NOVA CONTA/ig)) {
+			addNewAccount(sender);
 		}
 	});
 }
