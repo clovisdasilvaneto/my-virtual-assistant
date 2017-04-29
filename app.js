@@ -88,7 +88,7 @@ function checkMessageToReply({message, sender}){
 		}else {
 			console.log(message.text.match(/NOVA CONTA/ig), message.text)
 			switch (message.text) {
-				case message.text.match(/NOVA CONTA/ig):
+				case (message.text.match(/NOVA CONTA/ig) != null):
 					return addNewAccount(sender);
 					break
 			}
@@ -291,7 +291,6 @@ function checkPostBackToReply({postback, sender}, req){
 
 
 function addNewAccount(sender){
-	console.log('passou')
 	let data = {
 			step: 1
 		},
