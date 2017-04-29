@@ -452,7 +452,7 @@ function checkDaysToTrigger(d1,d2){
 	if(d1.getMonth() == copyOfD2.getMonth() && d1.getDate() >= copyOfD2.getDate() && d1.getDate() < d2.getDate()){
 		console.log('pegou');
 		return true
-	}else if(d1.getMonth() == d2.getMonth() && d1.getDate() > d2.getDate()){
+	}else if(d1.getMonth() >= d2.getMonth() && d1.getDate() > d2.getDate()){
 		return "expired";
 	}
 }
