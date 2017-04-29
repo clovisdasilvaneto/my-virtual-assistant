@@ -139,7 +139,7 @@ function checkMessageToSteps(message, sender, section){
 					text: `
 							Conta cadastrada com sucesso, quando estiver na semana da sua conta, irei lhe avisar todos os dias. Segue os detalhes da sua conta:
 							\n
-							Nome: ${account.name},
+							Nome da conta: ${account.name}
 							Valor: ${account.value}
 							Data de vencimento: ${account.issueDate}
 							\n
