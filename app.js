@@ -128,7 +128,7 @@ function checkMessageToSteps(message, sender, section){
 		
 		//TODO: Salvar os detalhes da conta no banco, e destruir a seção
 		case 3:
-			if(message.text.match(/\d{2}\/\d{2}\/\d{4}/g)){
+			if(message.text.match(/^\d{2}\/\d{2}\/\d{4}$/g)){
 				section.issueDate = message.text;
 				account = section;
 				
