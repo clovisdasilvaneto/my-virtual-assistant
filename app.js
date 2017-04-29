@@ -424,6 +424,7 @@ function scheduleAccountDate(account, sender){
 	issueDate.setDate(accountIssueDate.getDate() - 3);
 	
 	secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
+	console.log(new Date(), issueDate)
 	// secondBetweenIssueDate = getDatesSeconds(new Date('1995-12-17T03:24:00'), new Date('1995-12-17T03:24:30'));
 	
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
