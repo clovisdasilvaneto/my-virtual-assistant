@@ -65,9 +65,11 @@ function formatEntryMessage(event){
 	
 	
 	if(event.message){
-		console.log(`Mensagem: ${event.message}`);
+		console.log(`Mensagem:`);
+		console.log(event.message);
 	}else if(event.postback){
-		console.log(`Postback: ${event.postback}`);
+		console.log(`Postback:`);
+		console.log(event.postback)
 		return checkPostBackToReply(event);
 	}
 }
