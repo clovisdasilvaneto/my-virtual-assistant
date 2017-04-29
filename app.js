@@ -165,7 +165,7 @@ function checkMessageToSteps(message, sender, req){
 	}
 }
 
-function checkPostBackToReply({postback, sender}){
+function checkPostBackToReply({postback, sender}, req){
 	switch (postback.payload){
 		case "USER_DEFINED_PAYLOAD":
 			sendMessage(sender, {
