@@ -424,10 +424,11 @@ function scheduleAccountDate(account, sender){
 	}else if(checkDaysToTrigger(todayDate, accountIssueDate)){
 		return enterIntoSchedule(sender, account, accountIssueDate);
 	}else {
+		console.log('entrou no setTimeout')
+		
 		setInterval(function() {
 			todayDate = new Date();
 			
-			console.log('entrou no setTimeout')
 			
 			if(checkDaysToTrigger(todayDate, accountIssueDate)){
 				return enterIntoSchedule(sender, account, accountIssueDate);
