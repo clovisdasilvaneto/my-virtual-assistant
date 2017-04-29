@@ -67,10 +67,29 @@ function formatEntryMessage(event){
 	if(event.message){
 		console.log(`Mensagem:`);
 		console.log(event.message);
+		
+		return checkMessageToReply(event);
 	}else if(event.postback){
 		console.log(`Postback:`);
 		console.log(event.postback)
+		
 		return checkPostBackToReply(event);
+	}
+}
+
+function checkMessageToReply({message, sender}){
+	switch (message.text) {
+		case "Começar":
+			sendMessage(sender, {
+				text: `
+					Olá meu amigo, eu sou seu assistente virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta!
+					\n
+					Informe novas contas teclando: "Nova conta" e eu lhe pedirei mais informações.
+					\n
+					Uma semana antes do vencimento da sua conta ficarei lhe lembrando de pagar a mesma.
+				`
+			});
+			break
 	}
 }
 
@@ -83,12 +102,13 @@ function checkPostBackToReply({postback, sender}){
 			break
 		
 		case "DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER":
-			sendMessage(sender, {
+			//carrosel com as imagens
+			let data = {
 				attachment: {
 					type: "template",
-					payload: {
+						payload: {
 						template_type: "generic",
-						elements: [
+							elements: [
 							{
 								title: "Clóvis Neto da Sky",
 								image_url: "https://scontent.frec8-1.fna.fbcdn.net/v/t31.0-8/16299841_1094347327359465_8166142319977006716_o.jpg?oh=6b0795577b5968bc676ab27b0c87e887&oe=5976BE64",
@@ -134,34 +154,13 @@ function checkPostBackToReply({postback, sender}){
 										payload: "DEVELOPER_DEFINED_PAYLOAD"
 									}
 								]
-							},
-							{
-								title: "Clóvis Neto da Sky",
-								image_url: "https://scontent.frec8-1.fna.fbcdn.net/v/t31.0-8/16299841_1094347327359465_8166142319977006716_o.jpg?oh=6b0795577b5968bc676ab27b0c87e887&oe=5976BE64",
-								subtitle: "Tem que pagar a sky danado, valor é de R$: 300,00.",
-								default_action: {
-									type: "web_url",
-									url: "https://clovisdasilvaneto.github.io",
-									messenger_extensions: true,
-									webview_height_ratio: "tall",
-									fallback_url: "https://www.google.com"
-								},
-								buttons: [
-									{
-										type: "web_url",
-										url: "https://clovisdasilvaneto.github.io",
-										title: "Ver site"
-									}, {
-										type: "postback",
-										title: "Conversar via chat",
-										payload: "DEVELOPER_DEFINED_PAYLOAD"
-									}
-								]
-							},
+							}
 						]
 					}
 				}
-			}, function(){
+			};
+			
+			sendMessage(sender, data, function(){
 				sendMessage(sender, {
 					text: `As contas acima ainda não foram pagas.`
 				});
