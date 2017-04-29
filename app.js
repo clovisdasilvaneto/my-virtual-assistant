@@ -82,10 +82,8 @@ function checkMessageToReply({message, sender}){
 		case "Começar":
 			sendMessage(sender, {
 				text: `
-					Olá meu amigo, eu sou seu assistente virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta!
-					\n
+					Olá amigo, eu sou o seu mais novo Assistente Virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta!
 					Informe novas contas teclando: "Nova conta" e eu lhe pedirei mais informações.
-					\n
 					Uma semana antes do vencimento da sua conta ficarei lhe lembrando de pagar a mesma.
 				`
 			});
