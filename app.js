@@ -427,6 +427,8 @@ function scheduleAccountDate(account, sender){
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}`);
 	
 	setTimeout(function(issueDate, sender, account){
+		console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------')
+		
 		interval = setInterval(function(){
 			sendMessage(sender, {
 				text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
