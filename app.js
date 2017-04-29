@@ -414,40 +414,27 @@ function formatDate(maskedDate){
 }
 
 function scheduleAccountDate(account, sender){
-	
 	let accountIssueDate = formatDate(account.issueDate),
-		issueDate = accountIssueDate,
-		secondBetweenIssueDate,
-		warnings,
-		todayDate = new Date();
+		issueDate = accountIssueDate;
 	
 	//start to warnings 7 days before the maturity
-	issueDate.setDate(accountIssueDate.getDate() - 3);
+	issueDate.setDate(accountIssueDate.getDate() - config.prevDayToExpire());
 	
 	clearTimer(todayDate, issueDate);
 	
-	secondBetweenIssueDate = Math.floor(getDatesSeconds(todayDate, issueDate));
-	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
-	
-	setTimeout(function(sender, account, accountIssueDate){
-		console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------');
-		
-		// warnings = setInterval(function(){
-		// 	let currentDate = new Date();
-		// 	if(compareDates(currentDate, accountIssueDate)){
-		// 		sendMessage(sender, {
-		// 			text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
-		// 		})
-		// 		clearInterval(warnings);
-		// 	}else {
-		// 		sendMessage(sender, {
-		// 			text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
-		// 		});
-		// 	}
-		//
-		// }, 4000);
-		
-	}, secondBetweenIssueDate * 1000, sender, account, accountIssueDate);
+	if(checkDaysToTrigger(new Date(), issueDate) != "expired"){
+		sendMessage(sender, {
+			text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
+		})
+	}else if(checkDaysToTrigger(new Date(), issueDate)){
+		return enterIntoSchedule(sender, account, accountIssueDate);
+	}else {
+		setInterval(function() {
+			if(checkDaysToTrigger(new Date(), issueDate)){
+				return enterIntoSchedule(sender, account, accountIssueDate);
+			}
+		}, 86400 * 1000);
+	}
 }
 
 function clearTimer(d1){
@@ -464,11 +451,30 @@ function compareDates(d1,d2){
 	}
 }
 
-function getDatesSeconds(d1, d2){
-	let dif = d1.getTime() - d2.getTime();
+function checkDaysToTrigger(d1,d2){
+	if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire() == d2.getDate()){
+		return true
+	}else if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire() > d2.getDate()){
+		return "expired";
+	}
+}
+
+function enterIntoSchedule(sender, account, accountIssueDate){
+	console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------');
 	
-	let Seconds_from_T1_to_T2 = dif / 1000;
+	let warnings = setInterval(function(){
+		let currentDate = new Date();
+		if(compareDates(currentDate, accountIssueDate)){
+			sendMessage(sender, {
+				text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
+			});
+			clearInterval(warnings);
+		}else {
+			sendMessage(sender, {
+				text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
+			});
+		}
+		
+	}, 4000);
 	
-	
-	return Math.abs(Seconds_from_T1_to_T2);
 }
