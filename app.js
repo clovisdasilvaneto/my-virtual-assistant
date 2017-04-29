@@ -87,9 +87,7 @@ function checkMessageToReply({message, sender}){
 			console.log(section);
 			
 			return checkMessageToSteps(message, sender, section);
-		}
-			
-		if(message.text.match(/NOVA CONTA/ig)) {
+		}else if(message.text.match(/NOVA CONTA/ig)) {
 			return addNewAccount(sender);
 		}
 	});
@@ -137,7 +135,7 @@ function checkMessageToSteps(message, sender, section){
 				
 				sendMessage(sender, {
 					text: `
-							Conta cadastrada com sucesso, quando estiver na semana da sua conta, irei lhe avisar todos os dias. Segue os detalhes da sua conta:\n\nNome da conta: ${account.name}\nValor: ${account.value}\nData de vencimento: ${account.issueDate}\nVocê pode visualizar todas as suas contas em Menu do Chat > 🔍 - Visualizar contas. Caso queira em algum momento cadastrar uma nova conta, é só falar comigo digitando: "Nova Conta". Espero ver você em breve!
+							Conta cadastrada com sucesso, quando estiver na semana da sua conta, irei lhe avisar todos os dias. Segue os detalhes da sua conta:\n\nNome da conta: ${account.name}\nValor: ${account.value}\nData de vencimento: ${account.issueDate}\n\nVocê pode visualizar todas as suas contas em Menu do Chat > 🔍 - Visualizar contas. Caso queira em algum momento cadastrar uma nova conta, é só falar comigo digitando: "Nova Conta". Espero ver você em breve!
 						 `
 				}, function(){
 					deleteFile(sender.id, err => {
@@ -374,8 +372,8 @@ function setupBotLayout(){
 				call_to_actions:[
 					{
 						type:"postback",
-						title:"❓ - Ajuda",
-						payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
+						title:"Nova Conta",
+						payload:"USER_DEFINED_NEW_ACCOUNT"
 					},
 					{
 						type:"postback",
@@ -384,7 +382,7 @@ function setupBotLayout(){
 					},
 					{
 						type:"web_url",
-						title:"🌎 - Site do autor",
+						title:"🌎 - Blog do autor",
 						url:"https://clovisdasilvaneto.github.io",
 						webview_height_ratio: "full",
 						messenger_extensions: true
