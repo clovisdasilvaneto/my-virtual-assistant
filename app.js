@@ -435,12 +435,12 @@ function scheduleAccountDate(account, sender){
 		warnings = setInterval(function(){
 			let currentDate = new Date();
 			
-			console.log(accountIssueDate, currentDate);
-			
 			if(i == 2){
 				currentDate.setDate(accountIssueDate.getDate());
 				currentDate.setMonth(accountIssueDate.getMonth());
 				currentDate.getFullYear(accountIssueDate.getFullYear());
+				
+				console.log('Data currente: --------------------- ', currentDate)
 			}
 			
 			if(compareDates(currentDate, accountIssueDate)){
@@ -462,6 +462,8 @@ function scheduleAccountDate(account, sender){
 }
 
 function compareDates(d1,d2){
+	console.log(d1, d2);
+	
 	if(d1.getDate() >= d2.getDate() && d1.getMonth() == d2.getMonth() && d1.getFullYear() == d2.getFullYear()){
 		return true;
 	}
