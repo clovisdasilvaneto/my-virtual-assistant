@@ -80,7 +80,49 @@ function checkMessageToReply({message, sender}){
 	switch (message.text) {
 		case "USER_DEFINED_PAYLOAD":
 			sendMessage(sender, {
-				text: 'Olá amigo, eu sou o seu mais novo Assistente Virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta! <br> Informe novas contas teclando: "Nova conta", em seguida pedirei mais informações e uma semana antes do vencimento da sua conta ficarei lhe lembrando de pagar a mesma.'
+				"attachment":{
+					type:"template",
+					payload:{
+						template_type:"button",
+						text:'Olá amigo, eu sou o seu mais novo Assistente Virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta! <br> Informe novas contas teclando: "Nova conta", em seguida pedirei mais informações e uma semana antes do vencimento da sua conta ficarei lhe lembrando de pagar a mesma.',
+						buttons:[
+							{
+								type:"postback",
+								title:"Nova Conta",
+								payload:"USER_DEFINED_NEW_ACCOUNT"
+							},
+							{
+								type: "element_share",
+								share_contents: {
+									attachment: {
+										type: "template",
+										payload: {
+											template_type: "generic",
+											elements: [
+												{
+													title: "Assistente virtual para lembrar de pagar as contas!",
+													subtitle: "Conheça o assistente virtual que nunca mais irá deixar lhe esquecer de pagar as contas.",
+													image_url: "https://scontent.frec8-1.fna.fbcdn.net/v/t31.0-8/16299841_1094347327359465_8166142319977006716_o.jpg",
+													default_action: {
+														type: "web_url",
+														url: "https://www.messenger.com/t/283302338678723/"
+													},
+													buttons: [
+														{
+															type: "web_url",
+															url: "https://www.messenger.com/t/283302338678723/",
+															title: "Experimente!"
+														}
+													]
+												}
+											]
+										}
+									}
+								}
+							}
+						]
+					}
+				}
 			});
 			break
 		
@@ -219,7 +261,7 @@ function setupBotLayout(){
 		json: {
 			setting_type : "domain_whitelisting",
 			whitelisted_domains : ["https://clovisdasilvaneto.github.io","https://www.facebook.com/ClovisDaSilvaNeto",
-									"http://google.com"],
+									"http://google.com", "https://www.messenger.com/t/283302338678723/"],
 			domain_action_type: "add"
 		}
 	}, function(){
