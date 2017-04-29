@@ -421,8 +421,6 @@ function scheduleAccountDate(account, sender){
 	//start to warnings 7 days before the maturity
 	issueDate.setDate(accountIssueDate.getDate() - config.prevDayToExpire);
 	
-	clearTimer(todayDate);
-	
 	if(checkDaysToTrigger(todayDate, issueDate) == "expired"){
 		sendMessage(sender, {
 			text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
@@ -432,7 +430,6 @@ function scheduleAccountDate(account, sender){
 	}else {
 		setInterval(function() {
 			todayDate = new Date();
-			clearTimer(todayDate);
 			
 			console.log('entrou no setTimeout')
 			
@@ -441,12 +438,6 @@ function scheduleAccountDate(account, sender){
 			}
 		}, 86400 * 1000);
 	}
-}
-
-function clearTimer(d1){
-	d1.setHours(1)
-	d1.setMinutes(1)
-	d1.setSeconds(1)
 }
 
 function compareDates(d1,d2){
