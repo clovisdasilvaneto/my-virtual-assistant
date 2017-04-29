@@ -87,7 +87,9 @@ function checkMessageToReply({message, sender}){
 			console.log(section);
 			
 			return checkMessageToSteps(message, sender, section);
-		}else if(message.text.match(/^NOVA CONTA$/ig)) {
+		}
+		
+		if(message.text.match(/^NOVA CONTA$/ig)) {
 			return addNewAccount(sender);
 		}
 	});
