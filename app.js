@@ -292,9 +292,10 @@ function checkPostBackToReply({postback, sender}, req){
 
 
 function addNewAccount(sender, req){
-	req.session.account = {
-		step: 1
-	};
+	console.log(req.session)
+	// req.session.account = {
+	// 	step: 1
+	// };
 	
 	sendMessage(sender, {
 		text: `Informe o nome da conta:`
