@@ -185,8 +185,10 @@ function sendMessage(sender, messageData, callback) {
 			console.log('Error sending messages: ', error)
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error)
-		}else if(callback){
-			return callback()
+		}
+		
+		if(callback){
+			return callback();
 		}
 	})
 }
