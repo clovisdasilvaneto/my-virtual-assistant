@@ -118,12 +118,12 @@ function setupBotLayout(){
 				call_to_actions:[
 					{
 						type:"postback",
-						title:"Ajuda",
+						title:"❓ - Ajuda",
 						payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
 					},
 					{
 						type:"postback",
-						title:"Visualizar contas deste mês",
+						title:"🔍 - Visualizar contas deste mês",
 						payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER"
 					},
 					{
@@ -135,7 +135,7 @@ function setupBotLayout(){
 					},
 					{
 						type:"web_url",
-						title:"Facebook do autor",
+						title:"👤 - Perfil",
 						url:"https://www.facebook.com/ClovisDaSilvaNeto"
 					}
 				]
