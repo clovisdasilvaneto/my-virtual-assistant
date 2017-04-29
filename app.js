@@ -11,7 +11,7 @@ const token = process.env.FB_PAGE_ACCESS_TOKEN;
 app.set('port', (process.env.PORT || 5000));
 app.set('trust proxy', 1) // trust first proxy
 
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000 }}));
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
@@ -37,9 +37,7 @@ app.post('/webhook/', (req, res)=>{
 	
 	if(data){
 		console.log(data);
-		data.entry.forEach(entry => {
-			return formatEntry(entry, req);
-		});
+		data.entry.forEach(formatEntry(entry));
 		
 		res.sendStatus(200);
 	}else {
@@ -57,35 +55,38 @@ setupBotLayout();
 
 
 //Formata as entradas do usuário
-function formatEntry(entry, req){
+function formatEntry(entry){
 	let pageID = entry.id;
 	let timerOfEvent = entry.time;
 	
 	if(entry.messaging){
-		entry.messaging.forEach(event=>{
-			return formatEntryMessage(event, req);
-		});
+		entry.messaging.forEach(formatEntryMessage);
 	}
 }
 
-function formatEntryMessage(event, req){
-	console.log(`Evento: ${event}`)
+function formatEntryMessage(event){
+	console.log(`Evento: ${event}`);
 	
 	if(event.message){
 		console.log(`Mensagem:`);
 		console.log(event.message);
 		
-		return checkMessageToReply(event, req);
+		return checkMessageToReply(event);
 	}else if(event.postback){
 		console.log(`Postback:`);
 		console.log(event.postback)
 		
-		return checkPostBackToReply(event, req);
+		return checkPostBackToReply(event);
 	}
 }
 
 function checkMessageToReply({message, sender}, req){
-	console.log(req.session)
+	openFile(sender.id, err => {
+		console.log('-------------- TEMOS ERROR: ')
+		console.log(err)
+		console.log('---------------------------')
+	});
+	
 	if(req.session && req.session.account){
 		console.log('Chegou uma mensagem da seção')
 		return checkMessageToSteps(message, sender, req);
@@ -296,14 +297,29 @@ function checkPostBackToReply({postback, sender}, req){
 }
 
 
-function addNewAccount(sender, req){
-	req.session.account = {
-		step: 1
-	};
+function addNewAccount(sender){
+	let data = {
+			step: 1
+		},
+		src = sender.id+'.json';
 	
-	sendMessage(sender, {
-		text: `Informe o nome da conta:`
-	});
+	writeFile(src, data, err=>{
+		sendMessage(sender, {
+			text: `Informe o nome da conta:`
+		});
+	})
+}
+
+function openFile(fileName, callback){
+	let src = config.temporaryFolder+fileName;
+	
+	fs.readFile(src, callback);
+}
+
+function writeFile(fileName, data, callback){
+	let src = config.temporaryFolder+fileName;
+	
+	fs.writeFile(src, data, callback);
 }
 
 function sendMessage(sender, messageData, callback) {
