@@ -99,10 +99,14 @@ function checkMessageToReply({message, sender}, req){
 }
 
 function checkMessageToSteps(message, sender, req){
+	let accountName,
+		accountValue,
+		account;
+	
 	switch (req.session.account.step){
 		//Pergunta o valor da conta e grava o nome da conta na seção
 		case 1:
-			let accountName = req.session.account.name = message.text;
+			accountName = req.session.account.name = message.text;
 			
 			sendMessage(sender, {
 				text: `Certo estou gravando a conta: ${accountName} nos meus registros, agora me informe qual o valor da sua conta`
@@ -113,8 +117,8 @@ function checkMessageToSteps(message, sender, req){
 		
 		//Pergunta a data de vencimento da conta  e grava o valor da conta na seção
 		case 2:
-			let accountName = req.session.account.name;
-			let accountValue = req.session.account.value = message.text;
+			accountName = req.session.account.name;
+			accountValue = req.session.account.value = message.text;
 			
 			sendMessage(sender, {
 				text: `Certo estou gravando o valor de: ${accountValue}, da conta: ${accountName} nos meus registros, para finalizarmos me informe a data de vencimento da sua conta no formato: dd/mm/yyyy. Ex: 29/02/2030`
@@ -126,7 +130,7 @@ function checkMessageToSteps(message, sender, req){
 		//TODO: Salvar os detalhes da conta no banco, e destruir a seção
 		case 3:
 			if(message.text.match(/\d{2}\/\d{2}\/\d{4}/g)){
-				let account = req.session.account;
+				account = req.session.account;
 				
 				account.issueDate = message.text;
 				
