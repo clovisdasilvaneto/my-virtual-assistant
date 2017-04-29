@@ -139,7 +139,6 @@ function checkMessageToSteps(message, sender, section){
 				}, function(){
 					deleteFile(sender.id, err => {
 						console.log('Seção do usuário finalizada!');
-						section.issueDate = formatDate(section.issueDate);
 						
 						return scheduleAccountDate(section, sender)
 					});
@@ -416,9 +415,11 @@ function formatDate(maskedDate){
 
 function scheduleAccountDate(account, sender){
 	// let issueDate = account.issueDate.setDate(account.issueDate.getDate() - 7);
-	let issueDate = account.issueDate,
+	
+	let accountIssueDate = formatDate(account.issueDate),
+		issueDate = accountIssueDate,
 		secondBetweenIssueDate,
-		interval;
+		warnings;
 	
 	issueDate.setDate(account.issueDate.getDate());
 	// secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
@@ -426,16 +427,41 @@ function scheduleAccountDate(account, sender){
 	
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
 	
-	setTimeout(function(issueDate, sender, account){
+	setTimeout(function(sender, account, accountIssueDate){
 		console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------')
+		let i = 0;
 		
-		interval = setInterval(function(){
-			sendMessage(sender, {
-				text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
-			})
+		warnings = setInterval(function(){
+			let currentDate = new Date();
+			
+			if(i == 2){
+				currentDate.setDate(accountIssueDate.getDate());
+				currentDate.setMonth(accountIssueDate.getMonth());
+				currentDate.getFullYear(accountIssueDate.getFullYear());
+			}
+			
+			if(compareDates(currentDate, accountIssueDate)){
+				sendMessage(sender, {
+					text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
+				})
+				clearInterval(warnings);
+			}else {
+				sendMessage(sender, {
+					text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
+				})
+				
+				i++;
+			}
+			
 		}, 4000);
 		
-	}, secondBetweenIssueDate * 1000, issueDate, sender, account);
+	}, secondBetweenIssueDate * 1000, sender, account, accountIssueDate);
+}
+
+function compareDates(d1,d2){
+	if(d1.getDate() >= d2.getDate() && d1.getMonth() == d2.getMonth() && d1.getFullYear() == d2.getFullYear()){
+		return true;
+	}
 }
 
 function getDatesSeconds(d1, d2){
