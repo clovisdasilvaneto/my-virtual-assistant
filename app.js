@@ -311,13 +311,15 @@ function addNewAccount(sender){
 }
 
 function openFile(userId, callback){
-	let src =  config.temporaryFolder+'chat-user'+userId+'.json';
+	// let src = config.temporaryFolder+'chat-user'+userId+'.json';
+	let src= 'teste.json';
 	
 	fs.readFile(src, callback);
 }
 
 function writeFile(userId, data, callback){
-	let src = config.temporaryFolder+'chat-user'+userId+'.json';
+	// let src = config.temporaryFolder+'chat-user'+userId+'.json';
+	let src= 'teste.json';
 	
 	data = JSON.stringify(data);
 	fs.writeFile(src, data, callback);
