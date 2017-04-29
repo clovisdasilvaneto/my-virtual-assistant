@@ -410,7 +410,7 @@ function sendLogError(error, response) {
 function formatDate(maskedDate){
 	maskedDate = maskedDate.split('/');
 	
-	return new Date(maskedDate[2], maskedDate[1], maskedDate[0],0,0,0,0);
+	return new Date(maskedDate[2], parseInt(maskedDate[1]) - 1, maskedDate[0],0,0,0,0);
 }
 
 function scheduleAccountDate(account, sender){
