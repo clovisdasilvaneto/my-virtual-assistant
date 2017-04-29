@@ -55,7 +55,6 @@ function formatEntry(entry){
 	let timerOfEvent = entry.time;
 	
 	if(entry.messaging){
-		console.log('O usuario enviou uma mensagem: ');
 		entry.messaging.forEach(formatEntryMessage);
 	}
 }
@@ -81,10 +80,7 @@ function checkMessageToReply({message, sender}){
 	switch (message.text) {
 		case "USER_DEFINED_PAYLOAD":
 			sendMessage(sender, {
-				text: `
-					Olá amigo, eu sou o seu mais novo Assistente Virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta!
-					Informe novas contas teclando: "Nova conta" e eu lhe pedirei mais informações. <br> Uma semana antes do vencimento da sua conta ficarei lhe lembrando de pagar a mesma.
-				`
+				text: 'Olá amigo, eu sou o seu mais novo Assistente Virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta! <br> Informe novas contas teclando: "Nova conta" e eu lhe pedirei mais informações. <br> Uma semana antes do vencimento da sua conta ficarei lhe lembrando de pagar a mesma.'
 			});
 			break
 		

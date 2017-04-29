@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bce4be4-e863-4ec8-b4f4-5f222fb5c014" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -21,8 +20,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="85" column="102" lean-forward="true" selection-start-line="85" selection-start-column="102" selection-end-line="85" selection-end-column="102" />
+            <state relative-caret-position="549">
+              <caret line="82" column="141" lean-forward="false" selection-start-line="82" selection-start-column="141" selection-end-line="82" selection-end-column="141" />
               <folding />
             </state>
           </provider>
@@ -64,6 +63,7 @@
     <findStrings>
       <find>&quot;:</find>
       <find>type&quot;</find>
+      <find>o usuario</find>
     </findStrings>
     <replaceStrings>
       <replace>:</replace>
@@ -256,12 +256,12 @@
       <option name="presentableId" value="Default" />
       <updated>1493412042304</updated>
       <workItem from="1493412043570" duration="2716000" />
-      <workItem from="1493414958658" duration="13451000" />
+      <workItem from="1493414958658" duration="13641000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16167000" />
+    <option name="totallyTimeSpent" value="16357000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="805" extended-state="6" />
@@ -391,8 +391,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="85" column="102" lean-forward="true" selection-start-line="85" selection-start-column="102" selection-end-line="85" selection-end-column="102" />
+        <state relative-caret-position="549">
+          <caret line="82" column="141" lean-forward="false" selection-start-line="82" selection-start-column="141" selection-end-line="82" selection-end-column="141" />
           <folding />
         </state>
       </provider>
