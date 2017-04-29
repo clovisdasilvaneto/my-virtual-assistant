@@ -415,22 +415,26 @@ function formatDate(maskedDate){
 
 function scheduleAccountDate(account, sender){
 	let accountIssueDate = formatDate(account.issueDate),
-		issueDate = accountIssueDate;
+		issueDate = accountIssueDate,
+		todayDate = new Date();
 	
 	//start to warnings 7 days before the maturity
 	issueDate.setDate(accountIssueDate.getDate() - config.prevDayToExpire);
 	
-	clearTimer(todayDate, issueDate);
+	clearTimer(todayDate);
 	
-	if(checkDaysToTrigger(new Date(), issueDate) != "expired"){
+	if(checkDaysToTrigger(todayDate, issueDate) != "expired"){
 		sendMessage(sender, {
 			text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
 		})
-	}else if(checkDaysToTrigger(new Date(), issueDate)){
+	}else if(checkDaysToTrigger(todayDate, issueDate)){
 		return enterIntoSchedule(sender, account, accountIssueDate);
 	}else {
 		setInterval(function() {
-			if(checkDaysToTrigger(new Date(), issueDate)){
+			todayDate = new Date();
+			clearTimer(todayDate);
+			
+			if(checkDaysToTrigger(todayDate, issueDate)){
 				return enterIntoSchedule(sender, account, accountIssueDate);
 			}
 		}, 86400 * 1000);
