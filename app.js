@@ -3,11 +3,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
+const session = require('express-session');
 const config = require('./config/config.js');
 const app = express();
 const token = process.env.FB_PAGE_ACCESS_TOKEN;
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 5000));
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+	secret: 'bot assistant nino',
+	resave: false,
+	saveUninitialized: true,
+	cookie: { secure: true }
+}))
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
@@ -33,7 +41,7 @@ app.post('/webhook/', (req, res)=>{
 	
 	if(data){
 		console.log(data);
-		data.entry.forEach(formatEntry);
+		data.entry.forEach(formatEntry, req);
 		res.sendStatus(200);
 	}else {
 		res.status(401).send('Error, wrong message');
@@ -50,37 +58,107 @@ setupBotLayout();
 
 
 //Formata as entradas do usuário
-function formatEntry(entry){
+function formatEntry(entry, req){
 	let pageID = entry.id;
 	let timerOfEvent = entry.time;
 	
 	if(entry.messaging){
-		entry.messaging.forEach(formatEntryMessage);
+		entry.messaging.forEach(event=>{
+			return formatEntryMessage(event, req);
+		});
 	}
 }
 
-function formatEntryMessage(event){
+function formatEntryMessage(event, req){
 	console.log(`Evento: ${event}`)
-	
 	
 	if(event.message){
 		console.log(`Mensagem:`);
 		console.log(event.message);
 		
-		return checkMessageToReply(event);
+		return checkMessageToReply(event, req);
 	}else if(event.postback){
 		console.log(`Postback:`);
 		console.log(event.postback)
 		
-		return checkPostBackToReply(event);
+		return checkPostBackToReply(event, req);
 	}
 }
 
-function checkMessageToReply({message, sender}){
-	// switch (message.text) {
-	//
-	//
-	// }
+function checkMessageToReply({message, sender}, req){
+	if(req.session.account){
+		return checkMessageToSteps(message, sender, req);
+	}
+	
+	switch (message.text) {
+		case message.text.match(/NOVA CONTA/ig):
+			return addNewAccount(sender, req);
+			break
+	}
+	
+}
+
+function checkMessageToSteps(message, sender, req){
+	switch (req.session.account.step){
+		//Pergunta o valor da conta e grava o nome da conta na seção
+		case 1:
+			let accountName = req.session.account.name = message.text;
+			
+			sendMessage(sender, {
+				text: `Certo estou gravando a conta: ${accountName} nos meus registros, agora me informe qual o valor da sua conta`
+			}, function(){
+				req.session.account.step = 2;
+			});
+			break;
+		
+		//Pergunta a data de vencimento da conta  e grava o valor da conta na seção
+		case 2:
+			let accountName = req.session.account.name;
+			let accountValue = req.session.account.value = message.text;
+			
+			sendMessage(sender, {
+				text: `Certo estou gravando o valor de: ${accountValue}, da conta: ${accountName} nos meus registros, para finalizarmos me informe a data de vencimento da sua conta no formato: dd/mm/yyyy. Ex: 29/02/2030`
+			}, function(){
+				req.session.account.step = 3;
+			});
+			break;
+		
+		//TODO: Salvar os detalhes da conta no banco, e destruir a seção
+		case 3:
+			if(message.text.match(/\d{2}\/\d{2}\/\d{4}/g)){
+				let account = req.session.account;
+				
+				account.issueDate = message.text;
+				
+				console.log('Nova conta cadastrada: ');
+				console.log(req.session.account);
+				
+				sendMessage(sender, {
+					text: `
+							Conta cadastrada com sucesso, quando estiver na semana da sua conta, irei lhe avisar todos os dias. Segue os detalhes da sua conta:
+							\n
+							Nome: ${account.name},
+							\n
+							Valor: ${account.value}
+							\n
+							Data de vencimento: ${account.issueDate}
+							\n \n
+							Você pode visualizar todas as suas contas em Menu do Chat > 🔍 - Visualizar contas. Caso queira em algum momento cadastrar uma nova conta, é só falar comigo digitando: "Nova Conta". Espero ver você em breve!
+						 `
+				}, function(){
+					req.session.destroy(err=>{
+						console.log('Seção do usuário finalizada!')
+					});
+				});
+			}else {
+				sendMessage(sender, {
+					text: `Formato de data inválida, informe a data no seguinte formato: dd/mm/yyyy. Ex: 29/02/2030`
+				}, function(){
+					req.session.account.step = 3;
+				});
+			}
+			break;
+	}
 }
 
 function checkPostBackToReply({postback, sender}){
@@ -131,13 +209,17 @@ function checkPostBackToReply({postback, sender}){
 					}
 				}
 			});
-			break
+			break;
+		
+		case "USER_DEFINED_NEW_ACCOUNT":
+			addNewAccount(sender, req);
+			break;
 		
 		case "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP":
 			sendMessage(sender, {
 				text: `Olá estou em desenvolvimento, mas logo-logo irei te ajudar 🐵🐵`
 			});
-			break
+			break;
 		
 		case "DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER":
 			//carrosel com as imagens
@@ -206,6 +288,17 @@ function checkPostBackToReply({postback, sender}){
 			
 			break;
 	}
+}
+
+
+function addNewAccount(sender, req){
+	req.session.account = {
+		step: 1
+	};
+	
+	sendMessage(sender, {
+		text: `Informe o nome da conta:`
+	});
 }
 
 function sendMessage(sender, messageData, callback) {
