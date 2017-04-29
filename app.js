@@ -88,7 +88,8 @@ function checkMessageToReply({message, sender}){
 		}else {
 			console.log(message.text.match(/NOVA CONTA/ig), message.text)
 			switch (message.text) {
-				case (message.text.match(/NOVA CONTA/ig) != null):
+				case message.text.match(/NOVA CONTA/ig):
+					console.log('entrou no match')
 					return addNewAccount(sender);
 					break
 			}
