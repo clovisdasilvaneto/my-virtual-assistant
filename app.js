@@ -85,6 +85,7 @@ function formatEntryMessage(event, req){
 }
 
 function checkMessageToReply({message, sender}, req){
+	console.log(req.session)
 	if(req.session && req.session.account){
 		console.log('Chegou uma mensagem da seção')
 		return checkMessageToSteps(message, sender, req);
