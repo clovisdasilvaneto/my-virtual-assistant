@@ -122,18 +122,18 @@ function checkMessageToSteps(message, sender, section){
 				text: `Certo estou gravando o valor de: ${accountValue}, da conta: ${accountName} nos meus registros, para finalizarmos me informe a data de vencimento da sua conta no formato: dd/mm/yyyy. Ex: 29/02/2030`
 			}, function(){
 				section.step = 3;
+				writeFile(sender.id, section);
 			});
 			break;
 		
 		//TODO: Salvar os detalhes da conta no banco, e destruir a seção
 		case 3:
 			if(message.text.match(/\d{2}\/\d{2}\/\d{4}/g)){
-				account = req.session.account;
-				
-				account.issueDate = message.text;
+				section.issueDate = message.text;
+				account = section;
 				
 				console.log('Nova conta cadastrada: ');
-				console.log(req.session.account);
+				console.log(account);
 				
 				sendMessage(sender, {
 					text: `
@@ -148,15 +148,13 @@ function checkMessageToSteps(message, sender, section){
 							Você pode visualizar todas as suas contas em Menu do Chat > 🔍 - Visualizar contas. Caso queira em algum momento cadastrar uma nova conta, é só falar comigo digitando: "Nova Conta". Espero ver você em breve!
 						 `
 				}, function(){
-					req.session.destroy(err=>{
+					deleteFile(sender.id, err => {
 						console.log('Seção do usuário finalizada!')
 					});
 				});
 			}else {
 				sendMessage(sender, {
 					text: `Formato de data inválida, informe a data no seguinte formato: dd/mm/yyyy. Ex: 29/02/2030`
-				}, function(){
-					req.session.account.step = 3;
 				});
 			}
 			break;
@@ -306,16 +304,20 @@ function addNewAccount(sender){
 	})
 }
 
+function deleteFile(userId, callback){
+	let src = config.temporaryFolder+'chat-user'+userId+'.json';
+	
+	fs.unlinkSync(src, callback);
+}
+
 function openFile(userId, callback){
-	// let src = config.temporaryFolder+'chat-user'+userId+'.json';
-	let src= 'chat-user'+userId+'.json';
+	let src = config.temporaryFolder+'chat-user'+userId+'.json';
 	
 	fs.readFile(src, callback);
 }
 
 function writeFile(userId, data, callback){
-	// let src = config.temporaryFolder+'chat-user'+userId+'.json';
-	let src= 'chat-user'+userId+'.json';
+	let src = config.temporaryFolder+'chat-user'+userId+'.json';
 	
 	data = JSON.stringify(data);
 	fs.writeFile(src, data, callback);
