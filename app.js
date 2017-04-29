@@ -305,19 +305,19 @@ function addNewAccount(sender){
 }
 
 function deleteFile(userId, callback){
-	let src = config.temporaryFolder+'chat-user'+userId+'.json';
+	let src = 'chat-user'+userId+'.json';
 	
 	fs.unlinkSync(src, callback);
 }
 
 function openFile(userId, callback){
-	let src = config.temporaryFolder+'chat-user'+userId+'.json';
+	let src = 'chat-user'+userId+'.json';
 	
 	fs.readFile(src, callback);
 }
 
 function writeFile(userId, data, callback){
-	let src = config.temporaryFolder+'chat-user'+userId+'.json';
+	let src = 'chat-user'+userId+'.json';
 	
 	data = JSON.stringify(data);
 	fs.writeFile(src, data, callback);
