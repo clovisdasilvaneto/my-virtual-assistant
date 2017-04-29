@@ -3,7 +3,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const session = require('express-session');
 const fs = require('fs');
 const config = require('./config/config.js');
 const app = express();
@@ -11,8 +10,6 @@ const token = process.env.FB_PAGE_ACCESS_TOKEN;
 
 app.set('port', (process.env.PORT || 5000));
 app.set('trust proxy', 1) // trust first proxy
-
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000 }}));
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
