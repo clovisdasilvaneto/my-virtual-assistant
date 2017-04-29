@@ -86,7 +86,7 @@ function formatEntryMessage(event, req){
 }
 
 function checkMessageToReply({message, sender}, req){
-	if(req.session.account){
+	if(req.session && req.session.account){
 		return checkMessageToSteps(message, sender, req);
 	}
 	
