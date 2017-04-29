@@ -65,8 +65,6 @@ function formatEntry(entry){
 }
 
 function formatEntryMessage(event){
-	console.log(event)
-	
 	if(event.message){
 		console.log(`Mensagem:`);
 		console.log(event.message);
@@ -82,11 +80,10 @@ function formatEntryMessage(event){
 
 function checkMessageToReply({message, sender}){
 	openFile(sender.id, (err, section) => {
-		console.log('TEMOS ERROOORR ');
-		console.log(err);
 		if(!err){
 			console.log('Chegou uma mensagem da seção');
 			section = JSON.parse(section);
+			console.log(section)
 			return checkMessageToSteps(message, sender, section);
 		}else {
 			switch (message.text) {
