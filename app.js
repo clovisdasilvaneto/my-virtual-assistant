@@ -141,7 +141,10 @@ function checkMessageToSteps(message, sender, section){
 						 `
 				}, function(){
 					deleteFile(sender.id, err => {
-						console.log('Seção do usuário finalizada!')
+						console.log('Seção do usuário finalizada!');
+						section.issueDate = formatDate(section.issueDate);
+						
+						return scheduleAccountDate(section, sender)
 					});
 				});
 			}else {
@@ -406,4 +409,37 @@ function sendLogError(error, response) {
 	} else if (response.body.error) {
 		console.log('Error: ', response.body.error)
 	}
+}
+
+function formatDate(maskedDate){
+	maskedDate = maskedDate.split('/');
+	
+	return new Date(maskedDate[2], maskedDate[1], maskedDate[0],0,0,0,0);
+}
+
+function scheduleAccountDate(account, sender){
+	// let issueDate = account.issueDate.setDate(account.issueDate.getDate() - 7);
+	let issueDate = account.issueDate.setDate(account.issueDate.getDate());
+	let secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
+	let interval;
+	
+	console.log(`SCHEDULE: ${secondBetweenIssueDate}`);
+	
+	setTimeout(function(issueDate, sender, account){
+		interval = setInterval(function(){
+			sendMessage(sender, {
+				text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
+			})
+		}, 4000);
+		
+	}, secondBetweenIssueDate, issueDate, sender, account);
+}
+
+function getDatesSeconds(d1, d2){
+	let dif = d1.getTime() - d2.getTime();
+	
+	let Seconds_from_T1_to_T2 = dif / 1000;
+	
+	
+	return Math.abs(Seconds_from_T1_to_T2);
 }
