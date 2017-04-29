@@ -424,7 +424,7 @@ function scheduleAccountDate(account, sender){
 	// secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
 	secondBetweenIssueDate = getDatesSeconds(new Date('1995-12-17T03:24:00'), new Date('1995-12-17T03:24:30'));
 	
-	console.log(`SCHEDULE: ${secondBetweenIssueDate}`);
+	console.log(`SCHEDULE: ${secondBetweenIssueDate}` segundos);
 	
 	setTimeout(function(issueDate, sender, account){
 		console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------')
@@ -435,7 +435,7 @@ function scheduleAccountDate(account, sender){
 			})
 		}, 4000);
 		
-	}, secondBetweenIssueDate * 10000, issueDate, sender, account);
+	}, secondBetweenIssueDate * 1000, issueDate, sender, account);
 }
 
 function getDatesSeconds(d1, d2){
