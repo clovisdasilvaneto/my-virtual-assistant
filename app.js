@@ -418,15 +418,15 @@ function scheduleAccountDate(account, sender){
 	let accountIssueDate = formatDate(account.issueDate),
 		issueDate = accountIssueDate,
 		secondBetweenIssueDate,
-		warnings;
+		warnings,
+		todayDate = new Date();
 	
 	//start to warnings 7 days before the maturity
 	issueDate.setDate(accountIssueDate.getDate() - 3);
 	
-	secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
-	console.log(new Date(), issueDate)
-	// secondBetweenIssueDate = getDatesSeconds(new Date('1995-12-17T03:24:00'), new Date('1995-12-17T03:24:30'));
+	clearTime(todayDate, issueDate);
 	
+	secondBetweenIssueDate = getDatesSeconds(todayDate, issueDate);
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
 	
 	setTimeout(function(sender, account, accountIssueDate){
@@ -448,6 +448,12 @@ function scheduleAccountDate(account, sender){
 		// }, 4000);
 		
 	}, secondBetweenIssueDate * 1000, sender, account, accountIssueDate);
+}
+
+function clearTimer(d1){
+	d1.setHours(1)
+	d1.setMinutes(1)
+	d1.setSeconds(1)
 }
 
 function compareDates(d1,d2){
