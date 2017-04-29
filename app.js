@@ -418,8 +418,10 @@ function scheduleAccountDate(account, sender){
 		issueDate = accountIssueDate,
 		todayDate = new Date();
 	
-	//start to warnings 7 days before the maturity
+	//start to warnings 3 days before the maturity
 	issueDate.setDate(accountIssueDate.getDate() - config.prevDayToExpire);
+	
+	console.log('issueDate: ', issueDate)
 	
 	if(checkDaysToTrigger(todayDate, issueDate) == "expired"){
 		sendMessage(sender, {
