@@ -421,15 +421,16 @@ function scheduleAccountDate(account, sender){
 		warnings;
 	
 	//start to warnings 7 days before the maturity
-	issueDate.setDate(accountIssueDate.getDate() - 3);
-	secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
+	issueDate.setDate(accountIssueDate.getDate() -7);
+	
+	// secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
+	secondBetweenIssueDate = getDatesSeconds(new Date('1995-12-17T03:24:00'), new Date('1995-12-17T03:24:30'));
 	
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
 	
 	setTimeout(function(sender, account, accountIssueDate){
 		console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------');
 		
-		//warning each 6 hour
 		warnings = setInterval(function(){
 			let currentDate = new Date();
 			if(compareDates(currentDate, accountIssueDate)){
@@ -442,7 +443,8 @@ function scheduleAccountDate(account, sender){
 					text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
 				});
 			}
-		}, 21600 * 1000);
+			
+		}, 4000);
 		
 	}, secondBetweenIssueDate * 1000, sender, account, accountIssueDate);
 }
