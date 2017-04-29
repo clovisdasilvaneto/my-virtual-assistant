@@ -291,6 +291,7 @@ function checkPostBackToReply({postback, sender}, req){
 
 
 function addNewAccount(sender){
+	console.log('passou')
 	let data = {
 			step: 1
 		},
