@@ -458,10 +458,13 @@ function compareDates(d1,d2){
 }
 
 function checkDaysToTrigger(d1,d2){
+	let copyOfD1 = d1;
+	copyOfD1.setDate(copyOfD1.getDate()+config.prevDayToExpire);
+	
 	console.log(d1.getDate() + config.prevDayToExpire, d2.getDate())
-	if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire == d2.getDate()){
+	if(copyOfD1.getMonth() == d2.getMonth() && copyOfD1.getDate() == d2.getDate()){
 		return true
-	}else if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire > d2.getDate()){
+	}else if(copyOfD1.getMonth() == d2.getMonth() && copyOfD1.getDate() > d2.getDate()){
 		return "expired";
 	}
 }
