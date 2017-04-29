@@ -74,16 +74,99 @@ function formatEntryMessage(event){
 	}
 }
 
-function checkPostBackToReply({postback, recipient, sender}){
+function checkPostBackToReply({postback, sender}){
 	switch (postback.payload){
 		case "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP":
-			sendTextMessage(sender, {
+			sendMessage(sender, {
 				text: `Olá estou em desenvolvimento, mas logo-logo irei te ajudar 🐵🐵`
-			})
+			});
+			break
+		
+		case "DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER":
+			sendMessage(sender, {
+				attachment: {
+					type: "template",
+					payload: {
+						template_type: "generic",
+						elements: [
+							{
+								title: "Clóvis Neto da Sky",
+								image_url: "https://scontent.frec8-1.fna.fbcdn.net/v/t31.0-8/16299841_1094347327359465_8166142319977006716_o.jpg?oh=6b0795577b5968bc676ab27b0c87e887&oe=5976BE64",
+								subtitle: "Tem que pagar a sky danado, valor é de R$: 300,00.",
+								default_action: {
+									type: "web_url",
+									url: "https://peterssendreceiveapp.ngrok.io/view?item=103",
+									messenger_extensions: true,
+									webview_height_ratio: "tall",
+									fallback_url: "https://peterssendreceiveapp.ngrok.io/"
+								},
+								buttons: [
+									{
+										type: "web_url",
+										url: "https://clovisdasilvaneto.github.io",
+										title: "Ver site"
+									}, {
+										type" "postback",
+										title: "Conversar via chat",
+										payload: "DEVELOPER_DEFINED_PAYLOAD"
+									}
+								]
+							},
+							{
+								title: "Clóvis Neto da Sky",
+								image_url: "https://scontent.frec8-1.fna.fbcdn.net/v/t31.0-8/16299841_1094347327359465_8166142319977006716_o.jpg?oh=6b0795577b5968bc676ab27b0c87e887&oe=5976BE64",
+								subtitle: "Tem que pagar a sky danado, valor é de R$: 300,00.",
+								default_action: {
+									type: "web_url",
+									url: "https://peterssendreceiveapp.ngrok.io/view?item=103",
+									messenger_extensions: true,
+									webview_height_ratio: "tall",
+									fallback_url: "https://peterssendreceiveapp.ngrok.io/"
+								},
+								buttons: [
+									{
+										type: "web_url",
+										url: "https://clovisdasilvaneto.github.io",
+										title: "Ver site"
+									}, {
+										type" "postback",
+										title: "Conversar via chat",
+										payload: "DEVELOPER_DEFINED_PAYLOAD"
+									}
+								]
+							},
+							{
+								title: "Clóvis Neto da Sky",
+								image_url: "https://scontent.frec8-1.fna.fbcdn.net/v/t31.0-8/16299841_1094347327359465_8166142319977006716_o.jpg?oh=6b0795577b5968bc676ab27b0c87e887&oe=5976BE64",
+								subtitle: "Tem que pagar a sky danado, valor é de R$: 300,00.",
+								default_action: {
+									type: "web_url",
+									url: "https://peterssendreceiveapp.ngrok.io/view?item=103",
+									messenger_extensions: true,
+									webview_height_ratio: "tall",
+									fallback_url: "https://peterssendreceiveapp.ngrok.io/"
+								},
+								buttons: [
+									{
+										type: "web_url",
+										url: "https://clovisdasilvaneto.github.io",
+										title: "Ver site"
+									}, {
+										type" "postback",
+										title: "Conversar via chat",
+										payload: "DEVELOPER_DEFINED_PAYLOAD"
+									}
+								]
+							},
+						]
+					}
+				}
+			});
+			break;
 	}
 }
 
-function sendTextMessage(sender, messageData) {
+function sendMessage(sender, messageData) {
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token:token},
