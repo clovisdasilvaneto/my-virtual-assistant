@@ -10,12 +10,8 @@ const token = process.env.FB_PAGE_ACCESS_TOKEN;
 
 app.set('port', (process.env.PORT || 5000));
 app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-	secret: 'bot assistant nino',
-	resave: false,
-	saveUninitialized: true,
-	cookie: { secure: true }
-}))
+
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
