@@ -444,7 +444,7 @@ function compareDates(d1,d2){
 }
 
 function checkDaysToTrigger(d1,d2){
-	let copyOfD2 = new Date(d1.valueOf());
+	let copyOfD2 = new Date(d2.valueOf());
 
 	copyOfD2.setDate(copyOfD2.getDate()-config.prevDayToExpire);
 	
