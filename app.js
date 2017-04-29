@@ -37,7 +37,6 @@ app.post('/webhook/', (req, res)=>{
 	let data = req.body;
 	
 	if(data){
-		console.log(data);
 		data.entry.forEach(formatEntry);
 		
 		res.sendStatus(200);
@@ -66,8 +65,6 @@ function formatEntry(entry){
 }
 
 function formatEntryMessage(event){
-	console.log(`Evento: ${event}`);
-	
 	if(event.message){
 		console.log(`Mensagem:`);
 		console.log(event.message);
