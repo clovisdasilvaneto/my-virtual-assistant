@@ -299,7 +299,7 @@ function addNewAccount(sender){
 function deleteFile(userId, callback){
 	let src = 'chat-user'+userId+'.json';
 	
-	fs.unlinkSync(src, callback);
+	fs.unlink(src, callback);
 }
 
 function openFile(userId, callback){
