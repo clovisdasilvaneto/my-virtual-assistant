@@ -432,20 +432,20 @@ function scheduleAccountDate(account, sender){
 	setTimeout(function(sender, account, accountIssueDate){
 		console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------');
 		
-		warnings = setInterval(function(){
-			let currentDate = new Date();
-			if(compareDates(currentDate, accountIssueDate)){
-				sendMessage(sender, {
-					text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
-				})
-				clearInterval(warnings);
-			}else {
-				sendMessage(sender, {
-					text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
-				});
-			}
-			
-		}, 4000);
+		// warnings = setInterval(function(){
+		// 	let currentDate = new Date();
+		// 	if(compareDates(currentDate, accountIssueDate)){
+		// 		sendMessage(sender, {
+		// 			text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
+		// 		})
+		// 		clearInterval(warnings);
+		// 	}else {
+		// 		sendMessage(sender, {
+		// 			text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
+		// 		});
+		// 	}
+		//
+		// }, 4000);
 		
 	}, secondBetweenIssueDate * 1000, sender, account, accountIssueDate);
 }
