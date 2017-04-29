@@ -418,7 +418,7 @@ function scheduleAccountDate(account, sender){
 		issueDate = accountIssueDate;
 	
 	//start to warnings 7 days before the maturity
-	issueDate.setDate(accountIssueDate.getDate() - config.prevDayToExpire());
+	issueDate.setDate(accountIssueDate.getDate() - config.prevDayToExpire);
 	
 	clearTimer(todayDate, issueDate);
 	
@@ -452,9 +452,9 @@ function compareDates(d1,d2){
 }
 
 function checkDaysToTrigger(d1,d2){
-	if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire() == d2.getDate()){
+	if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire == d2.getDate()){
 		return true
-	}else if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire() > d2.getDate()){
+	}else if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire > d2.getDate()){
 		return "expired";
 	}
 }
