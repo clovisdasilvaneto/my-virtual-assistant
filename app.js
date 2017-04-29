@@ -421,10 +421,10 @@ function scheduleAccountDate(account, sender){
 		warnings;
 	
 	//start to warnings 7 days before the maturity
-	issueDate.setDate(accountIssueDate.getDate() -7);
+	issueDate.setDate(accountIssueDate.getDate() - 3);
 	
-	// secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
-	secondBetweenIssueDate = getDatesSeconds(new Date('1995-12-17T03:24:00'), new Date('1995-12-17T03:24:30'));
+	secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
+	// secondBetweenIssueDate = getDatesSeconds(new Date('1995-12-17T03:24:00'), new Date('1995-12-17T03:24:30'));
 	
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
 	
