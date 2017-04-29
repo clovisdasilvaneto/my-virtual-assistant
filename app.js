@@ -421,29 +421,17 @@ function scheduleAccountDate(account, sender){
 		warnings;
 	
 	//start to warnings 7 days before the maturity
-	issueDate.setDate(accountIssueDate.getDate() -7);
-	
-	// secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
-	secondBetweenIssueDate = getDatesSeconds(new Date('1995-12-17T03:24:00'), new Date('1995-12-17T03:24:30'));
+	issueDate.setDate(accountIssueDate.getDate() - 7);
+	secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
 	
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
 	
 	setTimeout(function(sender, account, accountIssueDate){
-		console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------')
-		let i = 0;
+		console.log('---------------------------- ENTROU NO INTERVALOOOOOOOOOO ----------------------');
 		
+		//warning each 6 hour
 		warnings = setInterval(function(){
 			let currentDate = new Date();
-			
-			if(i == 2){
-				currentDate.setDate(accountIssueDate.getDate());
-				currentDate.setMonth(accountIssueDate.getMonth());
-				currentDate.setFullYear(accountIssueDate.getFullYear());
-				
-				console.log('Data currente: --------------------- ', currentDate)
-				console.log('ISSUE DATE: --------------------- ', issueDate)
-			}
-			
 			if(compareDates(currentDate, accountIssueDate)){
 				sendMessage(sender, {
 					text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
@@ -452,12 +440,9 @@ function scheduleAccountDate(account, sender){
 			}else {
 				sendMessage(sender, {
 					text: `Sua conta: ${account.name} - vai vencer no dia: ${account.issueDate}, lembre-se de paga-lá.`
-				})
-				
-				i++;
+				});
 			}
-			
-		}, 4000);
+		}, 21600 * 1000);
 		
 	}, secondBetweenIssueDate * 1000, sender, account, accountIssueDate);
 }
