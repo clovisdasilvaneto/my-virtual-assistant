@@ -140,11 +140,9 @@ function checkMessageToSteps(message, sender, section){
 							Conta cadastrada com sucesso, quando estiver na semana da sua conta, irei lhe avisar todos os dias. Segue os detalhes da sua conta:
 							\n
 							Nome: ${account.name},
-							\n
 							Valor: ${account.value}
-							\n
 							Data de vencimento: ${account.issueDate}
-							\n \n
+							\n
 							Você pode visualizar todas as suas contas em Menu do Chat > 🔍 - Visualizar contas. Caso queira em algum momento cadastrar uma nova conta, é só falar comigo digitando: "Nova Conta". Espero ver você em breve!
 						 `
 				}, function(){
