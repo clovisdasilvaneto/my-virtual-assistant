@@ -421,7 +421,7 @@ function scheduleAccountDate(account, sender){
 		warnings;
 	
 	//start to warnings 7 days before the maturity
-	issueDate.setDate(accountIssueDate.getDate() - 7);
+	issueDate.setDate(accountIssueDate.getDate() - 3);
 	secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
 	
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
