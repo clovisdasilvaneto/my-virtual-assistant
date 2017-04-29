@@ -435,7 +435,7 @@ function scheduleAccountDate(account, sender){
 		warnings = setInterval(function(){
 			let currentDate = new Date();
 			
-			console.log(i);
+			console.log(accountIssueDate, currentDate);
 			
 			if(i == 2){
 				currentDate.setDate(accountIssueDate.getDate());
