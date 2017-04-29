@@ -423,7 +423,7 @@ function scheduleAccountDate(account, sender){
 	
 	clearTimer(todayDate);
 	
-	if(checkDaysToTrigger(todayDate, issueDate) != "expired"){
+	if(checkDaysToTrigger(todayDate, issueDate) == "expired"){
 		sendMessage(sender, {
 			text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
 		})
