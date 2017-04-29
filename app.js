@@ -426,7 +426,7 @@ function scheduleAccountDate(account, sender){
 	
 	clearTimer(todayDate, issueDate);
 	
-	secondBetweenIssueDate = getDatesSeconds(todayDate, issueDate);
+	secondBetweenIssueDate = Math.floor(getDatesSeconds(todayDate, issueDate));
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}  segundos`);
 	
 	setTimeout(function(sender, account, accountIssueDate){
