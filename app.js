@@ -79,7 +79,7 @@ function formatEntryMessage(event){
 
 function checkMessageToReply({message, sender}){
 	switch (message.text) {
-		case "Começar":
+		case "USER_DEFINED_PAYLOAD":
 			sendMessage(sender, {
 				text: `
 					Olá amigo, eu sou o seu mais novo Assistente Virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta!
@@ -88,11 +88,22 @@ function checkMessageToReply({message, sender}){
 				`
 			});
 			break
+		
 	}
 }
 
 function checkPostBackToReply({postback, sender}){
 	switch (postback.payload){
+		case "USER_DEFINED_PAYLOAD":
+			sendMessage(sender, {
+				text: `
+					Olá amigo, eu sou o seu mais novo Assistente Virtual e estou aqui para lhe auxiliar nos pagamentos da sua conta!
+					Informe novas contas teclando: "Nova conta" e eu lhe pedirei mais informações.
+					Uma semana antes do vencimento da sua conta ficarei lhe lembrando de pagar a mesma.
+				`
+			});
+			break
+		
 		case "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP":
 			sendMessage(sender, {
 				text: `Olá estou em desenvolvimento, mas logo-logo irei te ajudar 🐵🐵`
