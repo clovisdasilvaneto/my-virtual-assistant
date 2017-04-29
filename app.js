@@ -81,52 +81,51 @@ function formatEntryMessage(event){
 	}
 }
 
-function checkMessageToReply({message, sender}, req){
-	openFile(sender.id, err => {
-		console.log('-------------- TEMOS ERROR: ')
-		console.log(err)
-		console.log('---------------------------')
+function checkMessageToReply({message, sender}){
+	openFile(sender.id, (err, section) => {
+		console.log('TEMOS ERROOORR ');
+		console.log(err);
+		if(!err){
+			console.log('Chegou uma mensagem da seção');
+			section = JSON.parse(section);
+			return checkMessageToSteps(message, sender, section);
+		}else {
+			switch (message.text) {
+				case message.text.match(/NOVA CONTA/ig):
+					return addNewAccount(sender, req);
+					break
+			}
+		}
 	});
-	
-	if(req.session && req.session.account){
-		console.log('Chegou uma mensagem da seção')
-		return checkMessageToSteps(message, sender, req);
-	}
-	
-	switch (message.text) {
-		case message.text.match(/NOVA CONTA/ig):
-			return addNewAccount(sender, req);
-			break
-	}
-	
 }
 
-function checkMessageToSteps(message, sender, req){
+function checkMessageToSteps(message, sender, section){
 	let accountName,
 		accountValue,
 		account;
 	
-	switch (req.session.account.step){
+	switch (section.step){
 		//Pergunta o valor da conta e grava o nome da conta na seção
 		case 1:
-			accountName = req.session.account.name = message.text;
+			accountName = section.name = message.text;
 			
 			sendMessage(sender, {
 				text: `Certo estou gravando a conta: ${accountName} nos meus registros, agora me informe qual o valor da sua conta`
 			}, function(){
-				req.session.account.step = 2;
+				section.step = 2;
+				writeFile(sender.id, section);
 			});
 			break;
 		
 		//Pergunta a data de vencimento da conta  e grava o valor da conta na seção
 		case 2:
-			accountName = req.session.account.name;
-			accountValue = req.session.account.value = message.text;
+			accountName = section.name;
+			accountValue = section.value = message.text;
 			
 			sendMessage(sender, {
 				text: `Certo estou gravando o valor de: ${accountValue}, da conta: ${accountName} nos meus registros, para finalizarmos me informe a data de vencimento da sua conta no formato: dd/mm/yyyy. Ex: 29/02/2030`
 			}, function(){
-				req.session.account.step = 3;
+				section.step = 3;
 			});
 			break;
 		
@@ -302,7 +301,7 @@ function addNewAccount(sender){
 	let data = {
 			step: 1
 		},
-		src = sender.id+'.json';
+		src = sender.id;
 	
 	writeFile(src, data, err=>{
 		sendMessage(sender, {
@@ -311,15 +310,16 @@ function addNewAccount(sender){
 	})
 }
 
-function openFile(fileName, callback){
-	let src = config.temporaryFolder+fileName;
+function openFile(userId, callback){
+	let src =  config.temporaryFolder+'chat-user'+userId+'.json';
 	
 	fs.readFile(src, callback);
 }
 
-function writeFile(fileName, data, callback){
-	let src = config.temporaryFolder+fileName;
+function writeFile(userId, data, callback){
+	let src = config.temporaryFolder+'chat-user'+userId+'.json';
 	
+	data = JSON.stringify(data);
 	fs.writeFile(src, data, callback);
 }
 
