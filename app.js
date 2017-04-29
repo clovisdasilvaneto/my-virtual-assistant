@@ -454,12 +454,8 @@ function checkDaysToTrigger(d1,d2){
 	let copyOfD1 = new Date(d1.valueOf());
 	copyOfD1.setDate(copyOfD1.getDate()+config.prevDayToExpire);
 	
-	console.log('--------------------------------------------------')
-	console.log(copyOfD1.getDate(), d2.getDate());
-	console.log(copyOfD1.getMonth(), d2.getMonth())
-	console.log('--------------------------------------------------')
-	
 	if(copyOfD1.getMonth() == d2.getMonth() && copyOfD1.getDate() == d2.getDate()){
+		console.log('retornou');
 		return true
 	}else if(copyOfD1.getMonth() == d2.getMonth() && copyOfD1.getDate() > d2.getDate()){
 		return "expired";
