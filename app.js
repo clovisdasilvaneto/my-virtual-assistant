@@ -137,13 +137,7 @@ function checkMessageToSteps(message, sender, section){
 				
 				sendMessage(sender, {
 					text: `
-							Conta cadastrada com sucesso, quando estiver na semana da sua conta, irei lhe avisar todos os dias. Segue os detalhes da sua conta:
-							\n
-							Nome da conta: ${account.name}
-							Valor: ${account.value}
-							Data de vencimento: ${account.issueDate}
-							\n
-							Você pode visualizar todas as suas contas em Menu do Chat > 🔍 - Visualizar contas. Caso queira em algum momento cadastrar uma nova conta, é só falar comigo digitando: "Nova Conta". Espero ver você em breve!
+							Conta cadastrada com sucesso, quando estiver na semana da sua conta, irei lhe avisar todos os dias. Segue os detalhes da sua conta:\n\nNome da conta: ${account.name}\nValor: ${account.value}\nData de vencimento: ${account.issueDate}\n\nVocê pode visualizar todas as suas contas em Menu do Chat > 🔍 - Visualizar contas. Caso queira em algum momento cadastrar uma nova conta, é só falar comigo digitando: "Nova Conta". Espero ver você em breve!
 						 `
 				}, function(){
 					deleteFile(sender.id, err => {
