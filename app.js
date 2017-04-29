@@ -435,7 +435,7 @@ function scheduleAccountDate(account, sender){
 			})
 		}, 4000);
 		
-	}, secondBetweenIssueDate, issueDate, sender, account);
+	}, secondBetweenIssueDate * 1000, issueDate, sender, account);
 }
 
 function getDatesSeconds(d1, d2){
@@ -444,5 +444,5 @@ function getDatesSeconds(d1, d2){
 	let Seconds_from_T1_to_T2 = dif / 1000;
 	
 	
-	return Math.abs(Seconds_from_T1_to_T2) * 10000;
+	return Math.abs(Seconds_from_T1_to_T2);
 }
