@@ -106,7 +106,7 @@ function checkPostBackToReply({postback, sender}){
 										url: "https://clovisdasilvaneto.github.io",
 										title: "Ver site"
 									}, {
-										type" "postback",
+										type: "postback",
 										title: "Conversar via chat",
 										payload: "DEVELOPER_DEFINED_PAYLOAD"
 									}
@@ -129,7 +129,7 @@ function checkPostBackToReply({postback, sender}){
 										url: "https://clovisdasilvaneto.github.io",
 										title: "Ver site"
 									}, {
-										type" "postback",
+										type: "postback",
 										title: "Conversar via chat",
 										payload: "DEVELOPER_DEFINED_PAYLOAD"
 									}
@@ -152,7 +152,7 @@ function checkPostBackToReply({postback, sender}){
 										url: "https://clovisdasilvaneto.github.io",
 										title: "Ver site"
 									}, {
-										type" "postback",
+										type: "postback",
 										title: "Conversar via chat",
 										payload: "DEVELOPER_DEFINED_PAYLOAD"
 									}
