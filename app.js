@@ -434,6 +434,8 @@ function scheduleAccountDate(account, sender){
 			todayDate = new Date();
 			clearTimer(todayDate);
 			
+			console.log('entrou no setTimeout')
+			
 			if(checkDaysToTrigger(todayDate, issueDate)){
 				return enterIntoSchedule(sender, account, accountIssueDate);
 			}
@@ -456,6 +458,7 @@ function compareDates(d1,d2){
 }
 
 function checkDaysToTrigger(d1,d2){
+	console.log(d1.getDate() + config.prevDayToExpire, d2.getDate())
 	if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire == d2.getDate()){
 		return true
 	}else if(d1.getMonth() == d2.getMonth() && d1.getDate() + config.prevDayToExpire > d2.getDate()){
