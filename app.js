@@ -45,8 +45,11 @@ app.listen(app.get('port'),()=>{
 	console.log('running on port', app.get('port'))
 });
 
+//chama o setup do bot
 setupBotLayout();
 
+
+//Formata as entradas do usuário
 function formatEntry(entry){
 	let pageID = entry.id;
 	let timerOfEvent = entry.time;
@@ -58,9 +61,23 @@ function formatEntry(entry){
 }
 
 function formatEntryMessage(event){
-	console.log(event)
+	console.log(`Evento: ${event}`)
+	
+	
 	if(event.message){
-		console.log(event.message);
+		console.log(`Mensagem: ${event.message}`);
+	}else if(event.postback){
+		console.log(`Postback: ${event.postback}`);
+		return checkPostBackToReply(event);
+	}
+}
+
+function checkPostBackToReply({postback, recipient, sender}){
+	switch (postback.payload){
+		case "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP":
+			sendTextMessage(sender, {
+				text: `Olá estou em desenvolvimento, mas logo-logo irei te ajudar 🐵🐵`
+			})
 	}
 }
 
@@ -70,7 +87,7 @@ function sendTextMessage({ sender, messageData }) {
 		qs: {access_token:token},
 		method: 'POST',
 		json: {
-			recipient: {id:sender},
+			recipient: {id:sender.id},
 			message: messageData,
 		}
 	}, function(error, response) {
