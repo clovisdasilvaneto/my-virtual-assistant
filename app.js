@@ -416,9 +416,12 @@ function formatDate(maskedDate){
 
 function scheduleAccountDate(account, sender){
 	// let issueDate = account.issueDate.setDate(account.issueDate.getDate() - 7);
-	let issueDate = account.issueDate.setDate(account.issueDate.getDate());
-	let secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
-	let interval;
+	let issueDate = account.issueDate,
+		secondBetweenIssueDate,
+		interval;
+	
+	issueDate.setDate(account.issueDate.getDate());
+	secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
 	
 	console.log(`SCHEDULE: ${secondBetweenIssueDate}`);
 	
