@@ -161,12 +161,17 @@ function checkPostBackToReply({postback, sender}){
 						]
 					}
 				}
+			}, function(){
+				sendMessage(sender, {
+					text: `As contas acima ainda não foram pagas.`
+				});
 			});
+			
 			break;
 	}
 }
 
-function sendMessage(sender, messageData) {
+function sendMessage(sender, messageData, callback) {
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {access_token:token},
@@ -180,6 +185,8 @@ function sendMessage(sender, messageData) {
 			console.log('Error sending messages: ', error)
 		} else if (response.body.error) {
 			console.log('Error: ', response.body.error)
+		}else if(callback){
+			return callback()
 		}
 	})
 }
