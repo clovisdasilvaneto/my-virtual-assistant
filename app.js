@@ -37,7 +37,10 @@ app.post('/webhook/', (req, res)=>{
 	
 	if(data){
 		console.log(data);
-		data.entry.forEach(formatEntry, req);
+		data.entry.forEach(entry => {
+			return formatEntry(entry, req);
+		});
+		
 		res.sendStatus(200);
 	}else {
 		res.status(401).send('Error, wrong message');
@@ -292,10 +295,9 @@ function checkPostBackToReply({postback, sender}, req){
 
 
 function addNewAccount(sender, req){
-	console.log(req.session)
-	// req.session.account = {
-	// 	step: 1
-	// };
+	req.session.account = {
+		step: 1
+	};
 	
 	sendMessage(sender, {
 		text: `Informe o nome da conta:`
