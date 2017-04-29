@@ -123,7 +123,7 @@ function setupBotLayout(){
 					},
 					{
 						type:"postback",
-						title:"🔍 - Visualizar contas deste mês",
+						title:"🔍 - Visualizar contas",
 						payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_START_ORDER"
 					},
 					{
