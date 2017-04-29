@@ -441,6 +441,7 @@ function scheduleAccountDate(account, sender){
 				currentDate.setFullYear(accountIssueDate.getFullYear());
 				
 				console.log('Data currente: --------------------- ', currentDate)
+				console.log('ISSUE DATE: --------------------- ', issueDate)
 			}
 			
 			if(compareDates(currentDate, accountIssueDate)){
