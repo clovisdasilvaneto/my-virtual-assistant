@@ -425,10 +425,7 @@ function scheduleAccountDate(account, sender){
 		return enterIntoSchedule(sender, account, accountIssueDate);
 	}else {
 		setInterval(function() {
-			todayDate = new Date();
-			
-			
-			if(checkDaysToTrigger(todayDate, accountIssueDate)){
+			if(checkDaysToTrigger(new Date(), accountIssueDate)){
 				return enterIntoSchedule(sender, account, accountIssueDate);
 			}
 		}, 86400 * 1000);
