@@ -414,14 +414,15 @@ function formatDate(maskedDate){
 }
 
 function scheduleAccountDate(account, sender){
-	// let issueDate = account.issueDate.setDate(account.issueDate.getDate() - 7);
 	
 	let accountIssueDate = formatDate(account.issueDate),
 		issueDate = accountIssueDate,
 		secondBetweenIssueDate,
 		warnings;
 	
-	issueDate.setDate(account.issueDate.getDate());
+	//start to warnings 7 days before the issuance
+	issueDate.setDate(accountIssueDate.getDate() -7);
+	
 	// secondBetweenIssueDate = getDatesSeconds(new Date(), issueDate);
 	secondBetweenIssueDate = getDatesSeconds(new Date('1995-12-17T03:24:00'), new Date('1995-12-17T03:24:30'));
 	
