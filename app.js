@@ -444,5 +444,5 @@ function getDatesSeconds(d1, d2){
 	let Seconds_from_T1_to_T2 = dif / 1000;
 	
 	
-	return Math.abs(Seconds_from_T1_to_T2);
+	return Math.abs(Seconds_from_T1_to_T2) * 10000;
 }
