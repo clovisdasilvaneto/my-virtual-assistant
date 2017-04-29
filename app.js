@@ -37,7 +37,7 @@ app.post('/webhook/', (req, res)=>{
 	
 	if(data){
 		console.log(data);
-		data.entry.forEach(formatEntry(entry));
+		data.entry.forEach(formatEntry);
 		
 		res.sendStatus(200);
 	}else {
