@@ -452,7 +452,7 @@ function checkDaysToTrigger(d1,d2){
 	console.log('DATA d1: ', d1)
 	console.log('DATA 2: ', d2)
 	
-	if(d1.getMonth() == copyOfD2.getMonth() && d1.getDate() >= copyOfD2.getDate() && (d1.getDate() < d2.getDate() && d1.getMonth() < d2.getMonth())){
+	if(d1.getMonth() == copyOfD2.getMonth() && d1.getDate() >= copyOfD2.getDate() && (d1.geMonth() < d2.getMonth() && d1.getMonth() < d2.getMonth())){
 		console.log('pegou');
 		return true
 	}else if(d1.getMonth() >= d2.getMonth() && d1.getDate() > d2.getDate()){
