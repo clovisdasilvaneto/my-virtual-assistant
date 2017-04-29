@@ -72,7 +72,7 @@ function formatEntryMessage(event){
 		return checkMessageToReply(event);
 	}else if(event.postback){
 		console.log(`Postback:`);
-		console.log(event.postback)
+		console.log(event.postback);
 		
 		return checkPostBackToReply(event);
 	}
@@ -83,12 +83,13 @@ function checkMessageToReply({message, sender}){
 		if(!err){
 			console.log('Chegou uma mensagem da seção');
 			section = JSON.parse(section);
-			console.log(section)
+			console.log(section);
 			return checkMessageToSteps(message, sender, section);
 		}else {
+			console.log(message.text.match(/NOVA CONTA/ig), message.text)
 			switch (message.text) {
 				case message.text.match(/NOVA CONTA/ig):
-					return addNewAccount(sender, req);
+					return addNewAccount(sender);
 					break
 			}
 		}
@@ -210,7 +211,7 @@ function checkPostBackToReply({postback, sender}, req){
 			break;
 		
 		case "USER_DEFINED_NEW_ACCOUNT":
-			addNewAccount(sender, req);
+			addNewAccount(sender);
 			break;
 		
 		case "DEVELOPER_DEFINED_PAYLOAD_FOR_HELP":
