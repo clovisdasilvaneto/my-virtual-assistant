@@ -374,8 +374,8 @@ function setupBotLayout(){
 				call_to_actions:[
 					{
 						type:"postback",
-						title:"❓ - Ajuda",
-						payload:"DEVELOPER_DEFINED_PAYLOAD_FOR_HELP"
+						title:"Nova Conta",
+						payload:"USER_DEFINED_NEW_ACCOUNT"
 					},
 					{
 						type:"postback",
@@ -384,7 +384,7 @@ function setupBotLayout(){
 					},
 					{
 						type:"web_url",
-						title:"🌎 - Site do autor",
+						title:"🌎 - Blog do autor",
 						url:"https://clovisdasilvaneto.github.io",
 						webview_height_ratio: "full",
 						messenger_extensions: true
