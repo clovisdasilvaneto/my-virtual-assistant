@@ -438,7 +438,7 @@ function scheduleAccountDate(account, sender){
 			if(i == 2){
 				currentDate.setDate(accountIssueDate.getDate());
 				currentDate.setMonth(accountIssueDate.getMonth());
-				currentDate.getFullYear(accountIssueDate.getFullYear());
+				currentDate.setFullYear(accountIssueDate.getFullYear());
 				
 				console.log('Data currente: --------------------- ', currentDate)
 			}
