@@ -65,6 +65,8 @@ function formatEntry(entry){
 }
 
 function formatEntryMessage(event){
+	console.log(event)
+	
 	if(event.message){
 		console.log(`Mensagem:`);
 		console.log(event.message);
