@@ -95,10 +95,10 @@ function checkPostBackToReply({postback, sender}){
 								subtitle: "Tem que pagar a sky danado, valor é de R$: 300,00.",
 								default_action: {
 									type: "web_url",
-									url: "https://peterssendreceiveapp.ngrok.io/view?item=103",
+									url: "https://clovisdasilvaneto.github.io",
 									messenger_extensions: true,
 									webview_height_ratio: "tall",
-									fallback_url: "https://peterssendreceiveapp.ngrok.io/"
+									fallback_url: "https://www.google.com"
 								},
 								buttons: [
 									{
@@ -118,10 +118,10 @@ function checkPostBackToReply({postback, sender}){
 								subtitle: "Tem que pagar a sky danado, valor é de R$: 300,00.",
 								default_action: {
 									type: "web_url",
-									url: "https://peterssendreceiveapp.ngrok.io/view?item=103",
+									url: "https://clovisdasilvaneto.github.io",
 									messenger_extensions: true,
 									webview_height_ratio: "tall",
-									fallback_url: "https://peterssendreceiveapp.ngrok.io/"
+									fallback_url: "https://www.google.com"
 								},
 								buttons: [
 									{
@@ -141,10 +141,10 @@ function checkPostBackToReply({postback, sender}){
 								subtitle: "Tem que pagar a sky danado, valor é de R$: 300,00.",
 								default_action: {
 									type: "web_url",
-									url: "https://peterssendreceiveapp.ngrok.io/view?item=103",
+									url: "https://clovisdasilvaneto.github.io",
 									messenger_extensions: true,
 									webview_height_ratio: "tall",
-									fallback_url: "https://peterssendreceiveapp.ngrok.io/"
+									fallback_url: "https://www.google.com"
 								},
 								buttons: [
 									{
@@ -206,7 +206,8 @@ function setupBotLayout(){
 		method: 'POST',
 		json: {
 			setting_type : "domain_whitelisting",
-			whitelisted_domains : ["https://clovisdasilvaneto.github.io","https://www.facebook.com/ClovisDaSilvaNeto"],
+			whitelisted_domains : ["https://clovisdasilvaneto.github.io","https://www.facebook.com/ClovisDaSilvaNeto",
+									"http://google.com"],
 			domain_action_type: "add"
 		}
 	}, function(){
