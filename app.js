@@ -90,7 +90,7 @@ function checkMessageToReply({message, sender}){
 		}
 			
 		if(message.text.match(/NOVA CONTA/ig)) {
-			addNewAccount(sender);
+			return addNewAccount(sender);
 		}
 	});
 }
