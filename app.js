@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const session = require('express-session');
+const fs = require('fs');
 const config = require('./config/config.js');
 const app = express();
 const token = process.env.FB_PAGE_ACCESS_TOKEN;
