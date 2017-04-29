@@ -415,19 +415,13 @@ function formatDate(maskedDate){
 
 function scheduleAccountDate(account, sender){
 	let accountIssueDate = formatDate(account.issueDate),
-		issueDate = accountIssueDate,
 		todayDate = new Date();
 	
-	//start to warnings 3 days before the maturity
-	issueDate.setDate(accountIssueDate.getDate() - config.prevDayToExpire);
-	
-	console.log('issueDate: ', issueDate)
-	
-	if(checkDaysToTrigger(todayDate, issueDate) == "expired"){
+	if(checkDaysToTrigger(todayDate, accountIssueDate) == "expired"){
 		sendMessage(sender, {
 			text: `Sua conta: ${account.name} - venceu. Espero que você tenha pago.`
 		})
-	}else if(checkDaysToTrigger(todayDate, issueDate)){
+	}else if(checkDaysToTrigger(todayDate, accountIssueDate)){
 		return enterIntoSchedule(sender, account, accountIssueDate);
 	}else {
 		setInterval(function() {
@@ -435,7 +429,7 @@ function scheduleAccountDate(account, sender){
 			
 			console.log('entrou no setTimeout')
 			
-			if(checkDaysToTrigger(todayDate, issueDate)){
+			if(checkDaysToTrigger(todayDate, accountIssueDate)){
 				return enterIntoSchedule(sender, account, accountIssueDate);
 			}
 		}, 86400 * 1000);
@@ -451,13 +445,14 @@ function compareDates(d1,d2){
 }
 
 function checkDaysToTrigger(d1,d2){
-	let copyOfD1 = new Date(d1.valueOf());
-	copyOfD1.setDate(copyOfD1.getDate()+config.prevDayToExpire);
+	let copyOfD2 = new Date(d1.valueOf());
+
+	copyOfD2.setDate(copyOfD2.getDate()-config.prevDayToExpire);
 	
-	if(copyOfD1.getMonth() == d2.getMonth() && copyOfD1.getDate() == d2.getDate()){
-		console.log('retornou');
+	if(d1.getMonth() == copyOfD2.getMonth() && d1.getDate() >= copyOfD2.getDate() && d1.getDate() < d2.getDate()){
+		console.log('pegou');
 		return true
-	}else if(copyOfD1.getMonth() == d2.getMonth() && copyOfD1.getDate() > d2.getDate()){
+	}else if(d1.getMonth() == d2.getMonth() && d1.getDate() > d2.getDate()){
 		return "expired";
 	}
 }
