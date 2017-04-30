@@ -11,7 +11,7 @@ const token = process.env.FB_PAGE_ACCESS_TOKEN;
 const heroku = require("heroku-ping");
 
 heroku.ping({
-	interval: 1000,
+	interval: 10000,
 	silent: false,
 	apps: [{
 		name: 'assistent-virtual', // heroku app name - required
