@@ -482,6 +482,6 @@ function enterIntoSchedule(sender, account, accountIssueDate){
 			});
 		}
 		
-	}, 14400 * 1000);
+	}, 3600 * 1000);
 	
 }
